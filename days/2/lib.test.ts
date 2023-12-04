@@ -66,7 +66,7 @@ describe('Game.possible', () => {
         green: 1,
         blue: 1,
       }),
-    );
+    ).toBeFalse();
   });
 
   test('invalid case 2: many reveals', () => {
@@ -87,7 +87,7 @@ describe('Game.possible', () => {
         green: 1,
         blue: 1,
       }),
-    );
+    ).toBeFalse();
   });
 
   test('valid case 1: single reveal', () => {
@@ -124,7 +124,7 @@ describe('Game.possible', () => {
         green: 1,
         blue: 1,
       }),
-    );
+    ).toBeTrue();
   });
 });
 
