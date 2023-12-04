@@ -50,16 +50,18 @@ export class ScratchcardSet {
 
   play() {
     const queue = [...this.cards.values()];
-    let counter = 0;
+    const counter = new Map<Scratchcard, number>(queue.map(c => [c, 1]));
     while (queue.length > 0) {
-      counter += 1;
       const card = queue.shift()!;
       const winners = card.winners();
+      const cardCount = counter.get(card)!;
       for (let i = 1; i <= winners.length; i++) {
-        queue.push(this.cards.get(card.id + i)!);
+        const nextCard = this.cards.get(card.id + i)!;
+        const current = counter.get(nextCard)!;
+        counter.set(nextCard, current + cardCount);
       }
     }
-    return counter;
+    return sum([...counter.values()]);
   }
 }
 
