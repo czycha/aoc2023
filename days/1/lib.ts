@@ -1,4 +1,5 @@
 import picocolors from 'picocolors';
+import { readLinesFromFile } from '../../lib/files';
 
 const NUMERALS: Record<string, number> = {
   one: 1,
@@ -30,14 +31,8 @@ export function findCalibrationValue(input: string): number {
   return stringToNumber(matches[0]) * 10 + stringToNumber(matches.at(-1)!);
 }
 
-function readFile(path: string): Promise<string> {
-  const file = Bun.file(path);
-  return file.text();
-}
-
-export function getCalibrationValuesSum(text: string): number {
+export function getCalibrationValuesSum(lines: string[]): number {
   let sum = 0;
-  const lines = text.split('\n');
   for (const line of lines) {
     try {
       const value = findCalibrationValue(line.toLowerCase());
@@ -53,7 +48,7 @@ export function getCalibrationValuesSum(text: string): number {
 }
 
 export async function readCalibrationValues(path: string): Promise<number> {
-  const text = await readFile(path);
+  const text = await readLinesFromFile(path);
   return getCalibrationValuesSum(text);
 }
 
