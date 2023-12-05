@@ -24,4 +24,5 @@ jobs:
         run: bun test
       - name: Days
         shell: bash
-        run: bun run start
+        # don't print to log to keep secret
+        run: bun run start > /dev/null
